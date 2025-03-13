@@ -82,7 +82,6 @@
     "yauzl": "^2.10.0"
   },
   "devDependencies": {
-    "@types/electron": "^1.4.38",
     "electron": "^35.0.1",
     "typescript": "^5.8.2"
   }
