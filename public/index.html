@@ -6,6 +6,7 @@
     <title>SimpleGraph</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='css/main.css'>
+    <script src="./js/texteditor.js"></script>
 </head>
 <body>
     <div class="window-controls">
@@ -14,6 +15,11 @@
     </div>
     <div class="sidebar">
         <p class="title">SimpleGraph</p>
+        <For>Format your edges like this: "node1 node2 weight (if there is one)". For example, if there's an edge between node A and node B with a weight of 5, write as "A B 5"</p>
+        <div class="editor-container">
+            <div class="line-numbers" id="lineNumbers"></div>
+            <textarea id="editor" class="graphtext" oninput="updateLineNumbers()" onscroll="syncScroll()"></textarea>
+        </div>
     </div>
     <canvas id="graphCanvas"></canvas>
 </body>

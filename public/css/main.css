@@ -49,3 +49,43 @@ p.title{
     font-size: 30px;
     text-align: center;
 }
+
+.editor-container {
+    display: flex;
+    align-items: flex-start;
+    border: 1px solid #ccc;
+    background: #f8f8f8;
+    font-family: monospace;
+    width: 250px;
+    height: 300px;
+    overflow: hidden;
+}
+
+.line-numbers {
+    padding: 10px;
+    text-align: right;
+    background: #e0e0e0;
+    color: #555;
+    min-width: 10px;
+    font-size: 14px;
+    line-height: 20px;
+    border-right: 1px solid #ccc;
+    user-select: none;
+}
+
+.graphtext {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    outline: none;
+    background: #fff;
+    font-size: 14px;
+    line-height: 20px;
+    resize: none;
+    overflow: auto;
+    white-space: pre;
+}
+
+.graphtext, .line-numbers {
+    height: 100%;
+}
