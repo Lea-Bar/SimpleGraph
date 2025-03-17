@@ -1,5 +1,6 @@
 import { BrowserWindow, App } from 'electron';
 import path = require('path');
+import IPCMainLoader from './ipc/IPCMainLoader';
 
 export default class AppWindow {
     private static mainWindow: BrowserWindow | null = null;
@@ -19,10 +20,12 @@ export default class AppWindow {
         AppWindow.mainWindow = new BrowserWindow({
             width: 1080,
             height: 720,
-            frame: false
+            frame: false,
+            movable: true
         });
         AppWindow.mainWindow.loadFile(path.join(__dirname, "..", "public", "index.html"))
         AppWindow.mainWindow.on('closed', AppWindow.onClose);
+        IPCMainLoader.loadHandlers();
     };
 
     static main(app: App) {
