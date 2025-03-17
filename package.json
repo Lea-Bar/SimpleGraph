@@ -1,7 +1,7 @@
 {
   "name": "simplegraph",
   "version": "1.0.0",
-  "description": "Draw mathematical graphs simply and easily.",
+  "description": "Draw computer science graphs simply and easily.",
   "keywords": [
     "graph",
     "electronjs"
@@ -17,8 +17,10 @@
   "license": "ISC",
   "author": "Léa BAR",
   "type": "commonjs",
-  "main": "index.js",
+  "main": "dist/App.js",
   "scripts": {
+    "build" : "tsc",
+    "start" : "tsc && electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
