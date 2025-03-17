@@ -21,7 +21,11 @@ export default class AppWindow {
             width: 1080,
             height: 720,
             frame: false,
-            movable: true
+            movable: true,
+            webPreferences: {
+                nodeIntegration: true,
+                preload: path.join(__dirname, "..", "public", "js", "preload.js")
+            }
         });
         AppWindow.mainWindow.loadFile(path.join(__dirname, "..", "public", "index.html"))
         AppWindow.mainWindow.on('closed', AppWindow.onClose);
