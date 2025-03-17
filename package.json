@@ -19,8 +19,8 @@
   "type": "commonjs",
   "main": "dist/App.js",
   "scripts": {
-    "build" : "tsc",
-    "start" : "tsc && electron .",
+    "build": "tsc",
+    "start": "tsc && electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -65,6 +65,7 @@
     "object-keys": "^1.1.1",
     "once": "^1.4.0",
     "p-cancelable": "^2.1.1",
+    "path": "^0.12.7",
     "pend": "^1.2.0",
     "progress": "^2.0.3",
     "pump": "^3.0.2",

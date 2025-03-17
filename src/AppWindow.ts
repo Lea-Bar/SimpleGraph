@@ -1,4 +1,5 @@
 import { BrowserWindow, App } from 'electron';
+import path = require('path');
 
 export default class AppWindow {
     private static mainWindow: BrowserWindow | null = null;
@@ -20,6 +21,7 @@ export default class AppWindow {
             height: 720,
             frame: false
         });
+        AppWindow.mainWindow.loadFile(path.join(__dirname, "..", "public", "index.html"))
         AppWindow.mainWindow.on('closed', AppWindow.onClose);
     };
 
