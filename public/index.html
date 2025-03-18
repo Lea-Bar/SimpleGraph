@@ -7,6 +7,7 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='css/main.css'>
     <script src="./js/texteditor.js"></script>
+    <script src="./js/graph.js"></script>
 </head>
 <body>
     <div class="window-controls">
@@ -20,6 +21,9 @@
             <div class="line-numbers" id="lineNumbers"></div>
             <textarea id="editor" class="graphtext" oninput="updateLineNumbers()" onscroll="syncScroll()"></textarea>
         </div>
+        <div class="buttons-container">
+            <button id="graphtype" class="graph-type-button">Directed</button>
+        </div>        
     </div>
     <canvas id="graphCanvas"></canvas>
 </body>
