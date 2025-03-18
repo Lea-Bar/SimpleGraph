@@ -21,8 +21,12 @@ export default class AppWindow {
             width: 1080,
             height: 720,
             frame: false,
+            resizable: false,
             movable: true,
+            hasShadow: true,
+            title: "SimpleGraph",
             webPreferences: {
+                devTools: false,
                 nodeIntegration: true,
                 preload: path.join(__dirname, "..", "public", "js", "preload.js")
             }

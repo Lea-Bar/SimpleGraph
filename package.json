@@ -19,9 +19,27 @@
   "type": "commonjs",
   "main": "dist/App.js",
   "scripts": {
-    "build": "tsc",
     "start": "tsc && electron .",
+    "build": "tsc && electron-builder",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "build": {
+    "appId": "fr.leabar.simplegraph",
+    "productName": "SimpleGraph",
+    "files": [
+      "package.json",
+      "dist/**/*",
+      "public/**/*"
+    ],
+    "win": {
+      "target": "nsis"
+    },
+    "mac": {
+      "target": "dmg"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
   },
   "dependencies": {
     "boolean": "^3.2.0",
@@ -86,6 +104,7 @@
   },
   "devDependencies": {
     "electron": "^35.0.1",
+    "electron-builder": "^25.1.8",
     "typescript": "^5.8.2"
   }
 }

@@ -14,17 +14,19 @@
         <button id="minimize">_</button>
         <button id="close">X</button>
     </div>
-    <div class="sidebar">
-        <p class="title">SimpleGraph</p>
-        <For>Format your edges like this: "node1 node2 weight (if there is one)". For example, if there's an edge between node A and node B with a weight of 5, write as "A B 5"</p>
-        <div class="editor-container">
-            <div class="line-numbers" id="lineNumbers"></div>
-            <textarea id="editor" class="graphtext" oninput="updateLineNumbers()" onscroll="syncScroll()"></textarea>
+    <div class="container">
+        <div class="sidebar">
+            <p class="title">SimpleGraph</p>
+            <For>Format your edges like this: "node1 node2 weight (if there is one)". For example, if there's an edge between node A and node B with a weight of 5, write as "A B 5"</p>
+            <div class="editor-container">
+                <div class="line-numbers" id="lineNumbers"></div>
+                <textarea id="editor" class="graphtext" oninput="updateLineNumbers()" onscroll="syncScroll()"></textarea>
+            </div>
+            <div class="buttons-container">
+                <button id="graphtype" class="graph-type-button">Directed</button>
+            </div>        
         </div>
-        <div class="buttons-container">
-            <button id="graphtype" class="graph-type-button">Directed</button>
-        </div>        
+        <canvas id="graphCanvas" width="720" height="720"></canvas>
     </div>
-    <canvas id="graphCanvas"></canvas>
 </body>
 </html>
