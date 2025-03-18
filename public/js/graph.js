@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     graphtype.addEventListener("click", () => {
         isDirected = !isDirected;
         graphtype.textContent = isDirected ? "Directed" : "Undirected";
+        drawGraph()
     });
 
     drawGraph();
@@ -106,7 +107,7 @@ function drawEdge(ctx, a, b, weight, directed) {
     const startY = a.y + ndy * nodeRadius;
     let endX, endY;
     
-    if (isDirected) {
+    if (directed) {
         endX = b.x - ndx * (nodeRadius + headSize);
         endY = b.y - ndy * (nodeRadius + headSize);
     } else {
@@ -121,7 +122,7 @@ function drawEdge(ctx, a, b, weight, directed) {
     ctx.lineWidth = 2;
     ctx.stroke();
     
-    if (isDirected) {
+    if (directed) {
         const angle = Math.atan2(dy, dx);
         ctx.beginPath();
         ctx.moveTo(endX, endY);
