@@ -1,5 +1,8 @@
 let isDirected = true;
 let updateTimer = null;
+let nodePositions = {};
+let isDragging = false;
+let draggedNode = null;
 
 document.addEventListener("DOMContentLoaded", () => {
     const graphtype = document.getElementById("graphtype");
@@ -8,6 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
         graphtype.textContent = isDirected ? "Directed" : "Undirected";
         drawGraph()
     });
+
+    const canvas = document.getElementById('graphCanvas');
+    canvas.addEventListener('mousedown', startDrag);
+    canvas.addEventListener('mousemove', drag);
+    canvas.addEventListener('mouseup', endDrag);
+    canvas.addEventListener('mouseleave', endDrag);
 
     drawGraph();
     
@@ -22,8 +31,46 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+function startDrag(e) {
+    const canvas = document.getElementById('graphCanvas');
+    const rect = canvas.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    
+    for (const node in nodePositions) {
+        const pos = nodePositions[node];
+        const dx = mouseX - pos.x;
+        const dy = mouseY - pos.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        
+        if (distance <= 20) {
+            isDragging = true;
+            draggedNode = node;
+            break;
+        }
+    }
+}
 
-function drawGraph() {
+function drag(e) {
+    if (!isDragging || !draggedNode) return;
+    
+    const canvas = document.getElementById('graphCanvas');
+    const rect = canvas.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+    
+    nodePositions[draggedNode].x = mouseX;
+    nodePositions[draggedNode].y = mouseY;
+    
+    drawGraph(false);
+}
+
+function endDrag() {
+    isDragging = false;
+    draggedNode = null;
+}
+
+function drawGraph(recalculateP = true) {
     const canvas = document.getElementById('graphCanvas');
     const ctx = canvas.getContext('2d');
     const graphText = document.getElementById('editor').value;
@@ -47,23 +94,18 @@ function drawGraph() {
             nodes.add(b);
         }
     });
+
     if (nodes.size === 0) {
         return;
     }
-    const nodeArray = Array.from(nodes);
-    const nodePositions = {};
-    const cX = canvas.width / 2;
-    const cY = canvas.height / 2;
-    const radius = Math.min(cX, cY) - 500;
 
-    nodeArray.forEach((node, index) => {
-        const angle = (index / nodeArray.length) * 2 * Math.PI;
-        nodePositions[node] = {
-            x: cX + radius * Math.cos(angle),
-            y: cY + radius * Math.sin(angle)
-        };
-    });
+    const nodeArray = Array.from(nodes);
+
+    if (recalculateP) {
+        nodePositions = calculateGridLayout(nodeArray, canvas);
+    }
     
+
     edges.forEach(edge => {
         const sourcePos = nodePositions[edge.a];
         const targetPos = nodePositions[edge.b];
@@ -75,8 +117,36 @@ function drawGraph() {
     
     nodeArray.forEach(node => {
         const pos = nodePositions[node];
-        drawNode(ctx, pos.x, pos.y, node);
+        if(pos){
+            drawNode(ctx, pos.x, pos.y, node);
+        }
+
     });
+}
+
+function calculateGridLayout(nodeArray, canvas) {
+    const spacing = 120;
+    const cols = Math.ceil(Math.sqrt(nodeArray.length));
+    const rows = Math.ceil(nodeArray.length / cols);
+    
+    const totalWidth = cols * spacing; 
+    const totalHeight = rows * spacing;
+
+    const offsetX = (canvas.width - totalWidth) / 2 + spacing / 2;
+    const offsetY = (canvas.height - totalHeight) / 2 + spacing / 2;
+
+    const positions = {};
+    
+    nodeArray.forEach((node, index) => {
+        const row = Math.floor(index / cols);
+        const col = index % cols;
+        positions[node] = {
+            x: offsetX + col * spacing,
+            y: offsetY + row * spacing
+        };
+    });
+
+    return positions;
 }
 
 function drawNode(ctx, x, y, label) {
