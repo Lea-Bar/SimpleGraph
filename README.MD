@@ -1,12 +1,9 @@
 <h1 align="center">SimpleGraph</h1>
 <p align="center">A simple and easy way to draw computer science graphs</p>
 <div align="center">
-    <img src="https://img.shields.io/github/stars/Lea-Bar/SimpleGraph
-">
-    <img src="https://img.shields.io/github/forks/Lea-Bar/SimpleGraph
-">
-    <img src="https://img.shields.io/github/package-json/v/Lea-Bar/SimpleGraph
-">
+    <img src="https://img.shields.io/github/stars/Lea-Bar/SimpleGraph">
+    <img src="https://img.shields.io/github/forks/Lea-Bar/SimpleGraph">
+    <img src="https://img.shields.io/github/package-json/v/Lea-Bar/SimpleGraph">
 </div>
 
 ## Installation for Windows
