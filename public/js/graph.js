@@ -54,7 +54,7 @@ function drawGraph() {
     const nodePositions = {};
     const cX = canvas.width / 2;
     const cY = canvas.height / 2;
-    const radius = Math.min(cX, cY) - 50;
+    const radius = Math.min(cX, cY) - 500;
 
     nodeArray.forEach((node, index) => {
         const angle = (index / nodeArray.length) * 2 * Math.PI;
