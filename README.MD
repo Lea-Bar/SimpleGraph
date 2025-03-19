@@ -1,12 +1,9 @@
 <h1 align="center">SimpleGraph</h1>
 <p align="center">A simple and easy way to draw computer science graphs</p>
 <div align="center">
-    <img src="https://img.shields.io/github/stars/Lea-Bar/SimpleGraph
-">
-    <img src="https://img.shields.io/github/forks/Lea-Bar/SimpleGraph
-">
-    <img src="https://img.shields.io/github/package-json/v/Lea-Bar/SimpleGraph
-">
+    <img src="https://img.shields.io/github/stars/Lea-Bar/SimpleGraph">
+    <img src="https://img.shields.io/github/forks/Lea-Bar/SimpleGraph">
+    <img src="https://img.shields.io/github/package-json/v/Lea-Bar/SimpleGraph">
 </div>
 
 ## Installation for Windows
@@ -29,10 +26,10 @@
 ## How to use it ?
 To get started, simply enter your graph's edges in the textbox using the following format: ```node1 node2 weight (optional)```, here's an exemple:
 
-    ```
-    A B 2
-    D E 4
-    ```
+```
+A B 2
+D E 4
+```
     
 We have an edge A => B with a weight of 2 and an edge D => E with a weight of 4.
 
