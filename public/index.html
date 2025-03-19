@@ -18,7 +18,7 @@
     <div class="container">
         <div class="sidebar">
             <p class="title">SimpleGraph</p>
-            <For>Format your edges like this: "node1 node2 weight (if there is one)". For example, if there's an edge between node A and node B with a weight of 5, write as "A B 5"</p>
+            <p>Format your edges like this: "node1 node2 weight (if there is one)". For example, if there's an edge between node A and node B with a weight of 5, write as "A B 5"</p>
             <div class="editor-container">
                 <div class="line-numbers" id="lineNumbers"></div>
                 <textarea id="editor" class="graphtext" oninput="updateLineNumbers()" onscroll="syncScroll()"></textarea>
@@ -27,7 +27,7 @@
                 <button id="graphtype" class="graph-type-button">Directed</button>
             </div>        
         </div>
-        <canvas id="graphCanvas" width="720" height="720"></canvas>
+        <canvas id="graphCanvas" width="720" height="705"></canvas>
     </div>
 </body>
 </html>

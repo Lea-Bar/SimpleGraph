@@ -47,6 +47,7 @@ body{
 }
 
 canvas {
+    margin-top: 15px;
     flex-grow: 1;
     background: white;
     display: block;
