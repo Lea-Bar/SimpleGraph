@@ -7,12 +7,12 @@
 </div>
 
 ## Installation for Windows
-- Download the latest version of SimpleGraph from the [Releases page](https://github.com/Lea-Bar/SimpleGraph/releases/tag/RELEASE) (the exe one).
+- Download the latest version of SimpleGraph from the [Releases page](https://github.com/Lea-Bar/SimpleGraph/releases/tag) (the exe one).
 - Run the ```.exe``` installer.
 - Once installed, launch SimpleGraph.
 
 ## Installation for Linux
-- Download the latest version of SimpleGraph from the [Releases page](https://github.com/Lea-Bar/SimpleGraph/releases/tag/RELEASE) (the tar.gz one).
+- Download the latest version of SimpleGraph from the [Releases page](https://github.com/Lea-Bar/SimpleGraph/releases) (the tar.gz one).
 - Extract the archive to your desired installation location.
 - Grant execution permissions to SimpleGraph:
     ```bash
