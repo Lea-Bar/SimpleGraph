@@ -33,8 +33,8 @@ To get started, simply enter your graph's edges in the textbox using the followi
     A B 2
     D E 4
     ```
-
-    We have an edge A => B with a weight of 2 and an edge D => E with a weight of 4.
+    
+We have an edge A => B with a weight of 2 and an edge D => E with a weight of 4.
 
 Once you add your edges, the graph will be automatically generated using a grid-based layout.
 
@@ -44,6 +44,6 @@ You can adjust the positions of the nodes by dragging them around on the canvas.
 
 ## Screenshots
 
-<img src"./screenshots/screenshot1.png>
-<img src"./screenshots/screenshot2.png>
-<img src"./screenshots/screenshot3.png>
+<img src="./screenshots/screenshot1.png">
+<img src="./screenshots/screenshot2.png">
+<img src="./screenshots/screenshot3.png">
