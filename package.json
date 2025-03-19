@@ -15,12 +15,15 @@
     "url": "git+https://github.com/Lea-Bar/SimpleGraph.git"
   },
   "license": "ISC",
-  "author": "Léa BAR",
+  "author": {
+    "name": "Léa BAR",
+    "email": "contact@0xlea.fr"
+  },
   "type": "commonjs",
   "main": "dist/App.js",
   "scripts": {
     "start": "tsc && electron .",
-    "build": "tsc && electron-builder",
+    "build": "tsc && electron-builder -wl",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "build": {
@@ -31,14 +34,14 @@
       "dist/**/*",
       "public/**/*"
     ],
+    "directories": {
+      "output" : "build"
+    },
     "win": {
       "target": "nsis"
     },
-    "mac": {
-      "target": "dmg"
-    },
     "linux": {
-      "target": "AppImage"
+      "target": "tar.gz"
     }
   },
   "dependencies": {
