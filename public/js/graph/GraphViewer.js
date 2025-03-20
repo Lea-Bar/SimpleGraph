@@ -30,6 +30,14 @@ export class GraphViewer {
     
     get isDirected() { return this.#isDirected; }
     set isDirected(value) { this.#isDirected = value; }
+
+    get canvas(){
+        return this.#canvas;
+    }
+
+    get ctx(){
+        return this.#ctx;
+    }
     
     #init() {
         this.#graphTypeBtn.addEventListener("click", () => this.#toggleGraphType());
