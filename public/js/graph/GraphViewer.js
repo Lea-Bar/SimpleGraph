@@ -1,5 +1,6 @@
 import { Graph } from './Graph.js';
 import { GraphRenderer } from './GraphRenderer.js';
+import { GraphSaver } from './save/GraphSaver.js';
 
 export class GraphViewer {
     #canvas;
@@ -12,14 +13,18 @@ export class GraphViewer {
     #updateTimer;
     #isDragging;
     #draggedNode;
+    #saveBtn;
+    #graphSaver;
     
-    constructor(canvasId, editorId, graphTypeId) {
+    constructor(canvasId, editorId, graphTypeId, saveBtnId) {
         this.#canvas = document.getElementById(canvasId);
         this.#ctx = this.#canvas.getContext('2d');
         this.#editor = document.getElementById(editorId);
         this.#graphTypeBtn = document.getElementById(graphTypeId);
+        this.#saveBtn =  document.getElementById(saveBtnId);
         this.#graph = new Graph();
         this.#renderer = new GraphRenderer(this.#ctx);
+        this.#graphSaver = new GraphSaver(this.#graph, this.#ctx, this.#canvas);
         this.#isDirected = true;
         this.#updateTimer = null;
         this.#isDragging = false;
@@ -30,14 +35,6 @@ export class GraphViewer {
     
     get isDirected() { return this.#isDirected; }
     set isDirected(value) { this.#isDirected = value; }
-
-    get canvas(){
-        return this.#canvas;
-    }
-
-    get ctx(){
-        return this.#ctx;
-    }
     
     #init() {
         this.#graphTypeBtn.addEventListener("click", () => this.#toggleGraphType());
@@ -46,6 +43,7 @@ export class GraphViewer {
         this.#canvas.addEventListener('mousemove', (e) => this.#drag(e));
         this.#canvas.addEventListener('mouseup', () => this.#endDrag());
         this.#canvas.addEventListener('mouseleave', () => this.#endDrag());
+        this.#saveBtn.addEventListener('click', () => this.#graphSaver.downloadImage());
         
         this.drawGraph();
     }

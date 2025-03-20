@@ -103,9 +103,10 @@ p.title{
     display: flex;
     justify-content: center;
     margin-top: 10px;
+    flex-direction: column;
 }
 
-.graph-type-button {
+.button {
     background: #2c3e50;
     color: white;
     border: none;
@@ -114,12 +115,13 @@ p.title{
     border-radius: 5px;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s ease;
+    margin-bottom: 20px;
 }
 
-.graph-type-button:hover {
+.button:hover {
     background: #212d3a;
 }
 
-.graph-type-button:active {
+.button:active {
     transform: scale(0.95);
 }
