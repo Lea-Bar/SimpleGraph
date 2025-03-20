@@ -26,7 +26,7 @@ export default class AppWindow {
             hasShadow: true,
             title: "SimpleGraph",
             webPreferences: {
-                devTools: true,
+                devTools: false,
                 nodeIntegration: true,
                 preload: path.join(__dirname, "..", "public", "js", "preload.js")
             }
