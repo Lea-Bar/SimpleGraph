@@ -1,6 +1,6 @@
 {
   "name": "simplegraph",
-  "version": "1.1.0",
+  "version": "beta-1.1.1",
   "description": "Draw computer science graphs simply and easily.",
   "keywords": [
     "graph",
