@@ -90,7 +90,7 @@ export class GraphViewer {
     
     drawGraph(recalculatePositions = true) {
         this.#renderer.clear(this.#canvas);
-        if(recalculatePositions){
+        if (recalculatePositions) {
             this.#graph.parse(this.#editor.value);
         }
 
@@ -99,11 +99,16 @@ export class GraphViewer {
         if (recalculatePositions) {
             this.#graph.calculateLayout(this.#canvas.width, this.#canvas.height);
         }
-        
+
+        const font = '15px Trebuchet MS';
+        this.#graph.nodes.forEach(node => {
+            node.radius = this.#renderer.calculateNodeRadius(node.id, font);
+        });
+
         this.#graph.edges.forEach(edge => {
             this.#renderer.drawEdge(edge, this.#isDirected);
         });
-        
+
         this.#graph.nodes.forEach(node => {
             this.#renderer.drawNode(node);
         });

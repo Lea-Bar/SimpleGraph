@@ -1,19 +1,32 @@
 export class GraphRenderer {
     #ctx;
+    #nodePadding = 10;
     
     constructor(ctx) {
         this.#ctx = ctx;
     }
     
+    calculateNodeRadius(text, font) {
+        this.#ctx.font = font;
+        const metrics = this.#ctx.measureText(text);
+        const textWidth = metrics.width;
+        const textHeight = metrics.actualBoundingBoxAscent && metrics.actualBoundingBoxDescent
+            ? metrics.actualBoundingBoxAscent + metrics.actualBoundingBoxDescent
+            : parseInt(font.split('px')[0]) * 1.2;
+        return Math.max(textWidth, textHeight) / 2 + this.#nodePadding;
+    }
+    
     drawNode(node) {
+        const font = '15px Trebuchet MS';
+        this.#ctx.font = font;
+        const radius = Math.max(this.#nodePadding,this.calculateNodeRadius(node.id, font));
+        node.radius = radius;
         this.#ctx.beginPath();
-        this.#ctx.arc(node.x, node.y, node.radius, 0, 2*Math.PI);
+        this.#ctx.arc(node.x, node.y, radius, 0, 2*Math.PI);
         this.#ctx.strokeStyle = '#2c3e50';
         this.#ctx.lineWidth = 2;
         this.#ctx.stroke();
-
         this.#ctx.fillStyle = '#34495e';
-        this.#ctx.font = '15px Trebuchet MS';
         this.#ctx.textAlign = 'center';
         this.#ctx.textBaseline = 'middle';
         this.#ctx.fillText(node.id, node.x, node.y);
@@ -22,7 +35,15 @@ export class GraphRenderer {
     drawEdge(edge, isDirected) {
         const source = edge.source;
         const target = edge.target;
-        const nodeRadius = source.radius;
+        if (!source.radius) {
+            const font = '15px Trebuchet MS';
+            source.radius = this.calculateNodeRadius(source.id, font);
+        }
+        if (!target.radius) {
+            const font = '15px Trebuchet MS';
+            target.radius = this.calculateNodeRadius(target.id, font);
+        }
+
         const headSize = 10;
         
         const dx = target.x - source.x;
@@ -31,16 +52,16 @@ export class GraphRenderer {
         const ndx = dx/length;
         const ndy = dy/length;
         
-        const startX = source.x+ndx*nodeRadius;
-        const startY = source.y+ndy*nodeRadius;
+        const startX = source.x+ndx*source.radius;
+        const startY = source.y+ndy*source.radius;
         let endX, endY;
         
         if (isDirected) {
-            endX = target.x - ndx*(nodeRadius+headSize);
-            endY = target.y - ndy*(nodeRadius+headSize);
+            endX = target.x - ndx*(target.radius+headSize);
+            endY = target.y - ndy*(target.radius+headSize);
         } else {
-            endX = target.x - ndx*nodeRadius;
-            endY = target.y - ndy*nodeRadius;
+            endX = target.x - ndx*target.radius;
+            endY = target.y - ndy*target.radius;
         }
         
         this.#ctx.beginPath();
