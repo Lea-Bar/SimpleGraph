@@ -2,11 +2,13 @@ export class Edge {
     #source;
     #target;
     #weight;
+    #bold;
     
     constructor(source, target, weight = null) {
         this.#source = source;
         this.#target = target;
         this.#weight = weight;
+        this.#bold = false;
     }
     
     get source() { return this.#source; }
