@@ -1,6 +1,6 @@
 import { Graph } from './Graph.js';
 import { GraphRenderer } from './GraphRenderer.js';
-import { GraphSaver } from './save/GraphSaver.js';
+import { FormatManager } from './save/manager/FormatManager.js';
 
 export class GraphViewer {
     #canvas;
@@ -14,7 +14,7 @@ export class GraphViewer {
     #isDragging;
     #draggedNode;
     #saveBtn;
-    #graphSaver;
+    #formatManager;
     
     constructor(canvasId, editorId, graphTypeId, saveBtnId) {
         this.#canvas = document.getElementById(canvasId);
@@ -24,7 +24,7 @@ export class GraphViewer {
         this.#saveBtn = document.getElementById(saveBtnId);
         this.#graph = new Graph();
         this.#renderer = new GraphRenderer(this.#ctx);
-        this.#graphSaver = new GraphSaver(this.#graph, this.#ctx, this.#canvas);
+        this.#formatManager = new FormatManager();
         this.#isDirected = true;
         this.#updateTimer = null;
         this.#isDragging = false;
@@ -37,6 +37,7 @@ export class GraphViewer {
     set isDirected(value) { this.#isDirected = value; }
     
     #init() {
+        this.#formatManager.registerAllFormats();
         this.#graphTypeBtn.addEventListener('click', () => this.#toggleGraphType());
         this.#editor.addEventListener('input', () => this.#handleTextInput());
         this.#canvas.addEventListener('mousedown', (e) => this.#startDrag(e));
@@ -44,7 +45,7 @@ export class GraphViewer {
         this.#canvas.addEventListener('mouseup', () => this.#endDrag());
         this.#canvas.addEventListener('mouseleave', () => this.#endDrag());
         this.#canvas.addEventListener('dblclick', (e) => this.#handleEdgeDoubleClick(e));
-        this.#saveBtn.addEventListener('click', () => this.#graphSaver.downloadImage());
+        this.#saveBtn.addEventListener('click', () => this.#formatManager.getSaveFormat("png").export(this.#graph, this.#canvas, this.#ctx));
         
         this.drawGraph();
     }
