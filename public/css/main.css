@@ -12,7 +12,7 @@ body{
 }
 
 .sidebar {
-    width: 100%;
+    width: 350px;
     height: auto;
     background: #34495e;
     color: white;
@@ -101,9 +101,10 @@ p.title{
 
 .buttons-container {
     display: flex;
-    justify-content: center;
-    margin-top: 10px;
     flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+    gap: 10px;
 }
 
 .button {
@@ -115,7 +116,7 @@ p.title{
     border-radius: 5px;
     cursor: pointer;
     transition: background 0.3s ease, transform 0.2s ease;
-    margin-bottom: 20px;
+    margin: 0;
 }
 
 .button:hover {
@@ -124,4 +125,46 @@ p.title{
 
 .button:active {
     transform: scale(0.95);
+}
+
+.format-label {
+    color: white;
+    font-size: 16px;
+    user-select: none;
+}
+
+#formatSelect {
+    background: #2c3e50;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+#formatSelect:hover {
+    background: #212d3a;
+}
+
+#formatSelect:active {
+    transform: scale(0.95);
+}
+
+.save-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.load-group {
+    display: flex;
+    align-items: center;
+}
+
+#graphtype,
+#load {
+    width: 300px;
+    text-align: center;
 }

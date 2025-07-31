@@ -11,12 +11,12 @@ export class SaveFormat {
     return "";
   }
 
-  async prepare(graph, canvas, ctx) {
+  async prepare(graph, canvas, ctx, ...args) {
     throw new Error("prepare() must be implemented by subclass");
   }
 
-  async export(graph, canvas, ctx) {
-    const blobData = await this.prepare(graph, canvas, ctx);
+  async export(graph, canvas, ctx, ...args) {
+    const blobData = await this.prepare(graph, canvas, ctx, ...args);
     const blob = blobData instanceof Blob ? blobData : new Blob([blobData], { type: this.getMimeType() });
     const suggestedName = this.getSuggestedName();
     const extension = this.getExtension();

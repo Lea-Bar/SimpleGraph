@@ -1,4 +1,7 @@
 import { PngFormat } from "../formats/PngFormat.js";
+import { CsvFormat } from "../formats/CsvFormat.js";
+import { DotFormat } from "../formats/DotFormat.js";
+import { YamlFormat } from "../formats/YamlFormat.js";
 
 export class FormatManager {
   #saveFormats = new Map();
@@ -11,6 +14,9 @@ export class FormatManager {
 
   registerAllFormats(){
     this.registerSaveFormat(new PngFormat());
+    this.registerSaveFormat(new CsvFormat());
+    this.registerSaveFormat(new DotFormat());
+    this.registerSaveFormat(new YamlFormat());
   }
 
   getSaveFormat(extension) {
