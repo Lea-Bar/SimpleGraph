@@ -1,6 +1,8 @@
 import { Graph } from './Graph.js';
 import { GraphRenderer } from './GraphRenderer.js';
 import { FormatManager } from './save/manager/FormatManager.js';
+import { debounce } from './utils/Debounce.js';
+import { DEFAULT_NODE_FONT } from './constants.js';
 
 export class GraphViewer {
     #canvas;
@@ -10,7 +12,6 @@ export class GraphViewer {
     #graph;
     #renderer;
     #isDirected;
-    #updateTimer;
     #isDragging;
     #draggedNode;
     #saveBtn;
@@ -26,20 +27,16 @@ export class GraphViewer {
         this.#renderer = new GraphRenderer(this.#ctx);
         this.#formatManager = new FormatManager();
         this.#isDirected = true;
-        this.#updateTimer = null;
         this.#isDragging = false;
         this.#draggedNode = null;
         
         this.#init();
     }
     
-    get isDirected() { return this.#isDirected; }
-    set isDirected(value) { this.#isDirected = value; }
-    
     #init() {
         this.#formatManager.registerAllFormats();
         this.#graphTypeBtn.addEventListener('click', () => this.#toggleGraphType());
-        this.#editor.addEventListener('input', () => this.#handleTextInput());
+        this.#editor.addEventListener('input', debounce(() => this.drawGraph(), 500));
         this.#canvas.addEventListener('mousedown', (e) => this.#startDrag(e));
         this.#canvas.addEventListener('mousemove', (e) => this.#drag(e));
         this.#canvas.addEventListener('mouseup', () => this.#endDrag());
@@ -54,11 +51,6 @@ export class GraphViewer {
         this.#isDirected = !this.#isDirected;
         this.#graphTypeBtn.textContent = this.#isDirected ? "Directed" : "Undirected";
         this.drawGraph();
-    }
-    
-    #handleTextInput() {
-        if (this.#updateTimer) clearTimeout(this.#updateTimer);
-        this.#updateTimer = setTimeout(() => this.drawGraph(), 500);
     }
     
     #startDrag(e) {
@@ -87,39 +79,11 @@ export class GraphViewer {
         const rect = this.#canvas.getBoundingClientRect();
         const mouseX = e.clientX - rect.left;
         const mouseY = e.clientY - rect.top;
-        const edge = this.#findEdgeAt(mouseX, mouseY);
+        const edge = this.#graph.findEdgeAt(mouseX, mouseY);
         if (edge) {
             edge.bold = !edge.bold;
             this.drawGraph(false);
         }
-    }
-    
-    #findEdgeAt(x, y) {
-        const threshold = 6;
-        for (const edge of this.#graph.edges) {
-            const src = edge.source;
-            const tgt = edge.target;
-            const dx = tgt.x - src.x;
-            const dy = tgt.y - src.y;
-            const dist = Math.sqrt(dx*dx + dy*dy);
-            const ndx = dx / dist;
-            const ndy = dy / dist;
-            const startX = src.x + ndx * src.radius;
-            const startY = src.y + ndy * src.radius;
-            const endX = tgt.x - ndx * tgt.radius;
-            const endY = tgt.y - ndy * tgt.radius;
-
-            const px = x - startX;
-            const py = y - startY;
-            const proj = px * (endX - startX) + py * (endY - startY);
-            const len2 = (endX - startX)**2 + (endY - startY)**2;
-            if (proj < 0 || proj > len2) continue;
-            const projX = startX + (proj / len2) * (endX - startX);
-            const projY = startY + (proj / len2) * (endY - startY);
-            const d = Math.hypot(x - projX, y - projY);
-            if (d < threshold) return edge;
-        }
-        return null;
     }
     
     drawGraph(recalculatePositions = true) {
@@ -128,7 +92,7 @@ export class GraphViewer {
         if (this.#graph.nodes.size === 0) return;
         if (recalculatePositions) this.#graph.calculateLayout(this.#canvas.width, this.#canvas.height);
 
-        const font = '15px Trebuchet MS';
+        const font = DEFAULT_NODE_FONT;
         this.#graph.nodes.forEach(node => {
             node.radius = this.#renderer.calculateNodeRadius(node.id, font);
         });

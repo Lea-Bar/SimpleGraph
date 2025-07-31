@@ -1,3 +1,5 @@
+import { DEFAULT_NODE_FONT, DEFAULT_WEIGHT_FONT } from './constants.js';
+
 export class GraphRenderer {
     #ctx;
     #nodePadding = 10;
@@ -17,10 +19,10 @@ export class GraphRenderer {
     }
     
     drawNode(node) {
-        const font = '15px Trebuchet MS';
+        const font = DEFAULT_NODE_FONT;
         this.#ctx.font = font;
-        const radius = Math.max(this.#nodePadding, this.calculateNodeRadius(node.id, font));
-        node.radius = radius;
+        const radius = node.radius ?? Math.max(this.#nodePadding, this.calculateNodeRadius(node.id, font));
+
         this.#ctx.beginPath();
         this.#ctx.arc(node.x, node.y, radius, 0, 2 * Math.PI);
         this.#ctx.strokeStyle = '#2c3e50';
@@ -35,8 +37,8 @@ export class GraphRenderer {
     drawEdge(edge, isDirected) {
         const source = edge.source;
         const target = edge.target;
+        const font = DEFAULT_NODE_FONT;
 
-        const font = '15px Trebuchet MS';
         if (!source.radius) source.radius = this.calculateNodeRadius(source.id, font);
         if (!target.radius) target.radius = this.calculateNodeRadius(target.id, font);
 
@@ -87,6 +89,7 @@ export class GraphRenderer {
             const midY = (startY + tipY) / 2;
             const offsetX = -ndy * 15;
             const offsetY = ndx * 15;
+            this.#ctx.font = DEFAULT_WEIGHT_FONT;
             const textWidth = this.#ctx.measureText(edge.weight).width;
             this.#ctx.fillStyle = '#ecf0f1';
             this.#ctx.fillRect(
@@ -96,7 +99,7 @@ export class GraphRenderer {
                 20
             );
             this.#ctx.fillStyle = '#2c3e50';
-            this.#ctx.font = '14px Arial';
+            this.#ctx.font = DEFAULT_WEIGHT_FONT;
             this.#ctx.textAlign = 'center';
             this.#ctx.textBaseline = 'middle';
             this.#ctx.fillText(edge.weight, midX + offsetX, midY + offsetY);

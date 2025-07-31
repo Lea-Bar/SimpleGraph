@@ -86,4 +86,29 @@ export class Graph {
         }
         return null;
     }
+    findEdgeAt(x, y) {
+        const threshold = 6;
+        for (const edge of this.#edges) {
+            const { source: src, target: tgt } = edge;
+            const dx = tgt.x - src.x;
+            const dy = tgt.y - src.y;
+            const dist = Math.hypot(dx, dy);
+            if (!dist) continue;
+            const ndx = dx / dist;
+            const ndy = dy / dist;
+            const startX = src.x + ndx * src.radius;
+            const startY = src.y + ndy * src.radius;
+            const endX = tgt.x - ndx * tgt.radius;
+            const endY = tgt.y - ndy * tgt.radius;
+            const px = x - startX;
+            const py = y - startY;
+            const proj = px * (endX - startX) + py * (endY - startY);
+            const len2 = (endX - startX)**2 + (endY - startY)**2;
+            if (proj < 0 || proj > len2) continue;
+            const projX = startX + (proj / len2) * (endX - startX);
+            const projY = startY + (proj / len2) * (endY - startY);
+            if (Math.hypot(x - projX, y - projY) < threshold) return edge;
+        }
+        return null;
+    }
 }
