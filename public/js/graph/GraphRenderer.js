@@ -90,14 +90,6 @@ export class GraphRenderer {
             const offsetX = -ndy * 15;
             const offsetY = ndx * 15;
             this.#ctx.font = DEFAULT_WEIGHT_FONT;
-            const textWidth = this.#ctx.measureText(edge.weight).width;
-            this.#ctx.fillStyle = '#ecf0f1';
-            this.#ctx.fillRect(
-                midX + offsetX - textWidth / 2 - 2,
-                midY + offsetY - 10,
-                textWidth + 4,
-                20
-            );
             this.#ctx.fillStyle = '#2c3e50';
             this.#ctx.font = DEFAULT_WEIGHT_FONT;
             this.#ctx.textAlign = 'center';
